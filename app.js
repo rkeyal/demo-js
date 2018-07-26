@@ -40,9 +40,11 @@ function disconnect() {
 
 function showDeploymentMessage(deployment) {
     if (deployment.toString().includes("Success")) {
-        var row = $("<tr bgcolor='#90ee90'><td>" + deployment + "</td></tr>");
+        var row = $("<tr><td>" + deployment + "</td></tr>");
     } else if (deployment.toString().includes("Failed")) {
         var row = $("<tr bgcolor='#f08080'><td>" + deployment + "</td></tr>");
+    } else if (deployment.toString().includes("Timed")) {
+		var row = $("<tr bgcolor='#90ee90'><td>" + deployment + "</td></tr>");
     } else {
         var row = $("<tr bgcolor='#eee8aa'><td>" + deployment + "</td></tr>");
     }
@@ -73,7 +75,11 @@ function showApplications() {
 }
 
 function showSignoffMessage(signoff) {
-    var row = $("<tr><td>" + signoff + "</td></tr>");
+	if (signoff.toString().includes("Passed")) {
+		var row = $("<tr bgcolor='#90ee90'><td>" + signoff + "</td></tr>");
+	} else {
+		var row = $("<tr bgcolor='#f08080'><td>" + signoff + "</td></tr>");
+	}
     row.hide();
     $("#signoffs").prepend(row);
     row.fadeIn("slow");
